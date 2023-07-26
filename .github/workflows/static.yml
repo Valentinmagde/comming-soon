@@ -18,13 +18,17 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     - name: Deploy using ssh
-      uses: appleboy/ssh-action@main
+      uses: actions/checkout@v2
       with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        -password: ${{ secrets.PASSWORD }}
-        port: 22
-        script: |
-          cd /var/www/comming-soon
-          git pull --ff-only
-          git status
+        # This will create a directory named `my-repo` and copy the repo contents to it
+        # so that you can easily upload it to your remote server
+        path: "comming-soon"
+    - name: Copy folder content recursively to remote
+      uses: garygrossgarten/github-action-scp@release
+      with:
+       local: "comming-soon"
+       remote: ~/var/www/comming-soon
+       host: ${{ secrets.HOST }}
+       port: 59666
+       username: ${{ secrets.USERNAME }}
+       privateKey: ${{secrets.PRIVATE_KEY}}
