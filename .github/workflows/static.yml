@@ -37,6 +37,14 @@ jobs:
         uses: actions/upload-pages-artifact@v2
         with:
           # Upload entire repository
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.PRIVATE_KEY }}
+          port: 22
+          script: |
+            cd /var/www/comming-soon
+            git pull --ff-only
+            git status
           path: '.'
       - name: Deploy to GitHub Pages
         id: deployment
