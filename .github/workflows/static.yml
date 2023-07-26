@@ -31,4 +31,4 @@ jobs:
        host: ${{ secrets.HOST }}
        port: 59666
        username: ${{ secrets.USERNAME }}
-       key: ${{secrets.PRIVATE_KEY}}
+       password: ${{secrets.PASSWORD}}
