@@ -1,7 +1,7 @@
 <?php
   $host = "localhost";
   $username = "root";
-  $password = "root";
+  $password = "k!tEc0le";
   $dbName = "kitecole";
   
   try {
@@ -14,10 +14,14 @@
 
     // Create new subscriber
     if(!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)){
-        $sql = "INSERT INTO subscribers (email)
-        VALUES ('$email')";
+        // $sql = "INSERT INTO subscribers (email)
+        // VALUES ('$email')";
 
-        $conn->exec($sql);
+        // $conn->exec($sql);
+
+        $stmt = $conn->prepare("INSERT INTO subscribers (email) VALUES (:email)");
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
 
         echo "OK";
     }
